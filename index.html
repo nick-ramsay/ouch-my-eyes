@@ -1,55 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Look Away</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: black;
-        }
+  <title>Blinking Image Grid</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 20px);
+      gap: 2px;
+      padding: 10px;
+      justify-content: center;
+    }
+    .grid div {
+      width: 20px;
+      height: 20px;
+      overflow: hidden;
+    }
+    .grid img {
+      width: 20px;
+      height: 20px;
+      display: block;
+      animation: blink 1.5s infinite;
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 4px;
-            padding: 4px;
-        }
-
-        .grid div {
-            width: 100%;
-        }
-
-        .grid img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-    </style>
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="grid" id="imageGrid"></div>
+  <div class="grid" id="imageGrid"></div>
 
-    <script>
-        const imageUrl = './images/bufo-bright.png';
-        const grid = document.getElementById('imageGrid');
+  <script>
+    const imageUrl = './images/bufo-bright.png'; // white image on black
+    const grid = document.getElementById('imageGrid');
 
-        // Wait 3 seconds before adding images
-        setTimeout(() => {
-            for (let i = 0; i < 1000; i++) {
-                const div = document.createElement('div');
-                const img = document.createElement('img');
-                img.src = imageUrl;
-                img.alt = `Image ${i + 1}`;
-                div.appendChild(img);
-                grid.appendChild(div);
-            }
-        }, 3000);
-    </script>
+    setTimeout(() => {
+      for (let i = 0; i < 5000; i++) {
+        const div = document.createElement('div');
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.alt = `Image ${i + 1}`;
+        img.style.animationDelay = `${Math.random() * 2}s`; // randomize blinking
+
+        div.appendChild(img);
+        grid.appendChild(div);
+      }
+    }, 3000);
+  </script>
 </body>
-
 </html>
